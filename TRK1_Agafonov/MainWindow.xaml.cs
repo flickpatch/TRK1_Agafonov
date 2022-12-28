@@ -23,7 +23,7 @@ namespace TRK1_Agafonov
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static int selectied = 0;
+        private static int selectied = 0, full, fact;
         private static int selectiedName = 0;
         List<Service> services = EfModel.Init().Services.ToList();
 
@@ -55,7 +55,7 @@ namespace TRK1_Agafonov
             cbSortName.ItemsSource = selections;
             SeletItems();
 
-            
+            full = services.Count;
             
         }
         private void SeletItems()
@@ -78,7 +78,10 @@ namespace TRK1_Agafonov
                 lvSuplies.ItemsSource = EfModel.Init().Services.Where(s => s.Title.Contains(tbSearch.Text) || s.Description.Contains(tbSearch.Text)).ToList();
             else if (selectied == 2 && selectiedName == 1)
                 lvSuplies.ItemsSource = EfModel.Init().Services.Where(s => s.Title.Contains(tbSearch.Text) || s.Description.Contains(tbSearch.Text)).ToList();
-            
+
+            fact = lvSuplies.Items.Count;
+            tbCount.Text = fact + " из " + full + " предложений";
+
         }
 
         private void btnDeleteClick(object sender, RoutedEventArgs e)
